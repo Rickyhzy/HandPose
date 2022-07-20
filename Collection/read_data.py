@@ -19,15 +19,15 @@ def init():
 
 
 def to_file(data,name):
-    file = open('../data/deal/{}.txt'.format(name),'w')
+    file = open('../data/deal/{}.txt'.format(name), 'w')
     for i in range(len(data)):
-        s = str(data[i]).replace("'", '').replace("[",'').replace("]",'').replace(',','') + '\n'
+        s = str(data[i]).replace("'", '').replace("[", '').replace("]", '').replace(',', '') + '\n'
         file.write(s)
     file.close()
 
 def arr2csv(data,name):
     data = pd.DataFrame(data)
-    data.to_csv('../data/private/{}.csv'.format(name),index_label=None,header=None,index=None)
+    data.to_csv('../data/private/{}.csv'.format(name),index_label=None, header=None,index=None)
 
 
 if __name__ == '__main__':
@@ -52,4 +52,4 @@ if __name__ == '__main__':
             print('Data could not be read')
     ser.close()
     # to_file(DB,'one')
-    arr2csv(DB,'OK')
+    arr2csv(DB, 'OK')

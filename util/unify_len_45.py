@@ -3,6 +3,8 @@ import numpy as np
 from scipy.interpolate import interp1d
 from scipy import signal
 import matplotlib.pyplot as plt
+import os
+
 
 # 扩展到45
 def up_sample(data):
@@ -38,7 +40,7 @@ def up_sample(data):
     plt.show()
 
 
-    pass
+    return yint
 
 
 # 下采样到45
@@ -77,7 +79,7 @@ def down_sample(data):
     plt.legend()
     plt.show()
 
-    pass
+    return yint
 
 
 
@@ -93,5 +95,25 @@ if __name__ == '__main__':
     # flex5 = one.iloc[:, 4]
 
     # print(flex1)
-    up_sample(flex1_one)
-    down_sample(flex1_k)
+    # up_sample(flex1_one)
+    # down_sample(flex1_k)
+
+
+    # 批量进行数据长度固定
+    dir_path = '../data/dynamic/data/'
+    target_path = '../data/dynamic_unify/'
+    files = os.listdir(dir_path)
+    # print(files)
+    for i in files:
+        print(i)
+        data = pd.read_csv(dir_path + i, header=None)
+        sam_len = len(data)
+        if sam_len >= 45:
+            data_unify = down_sample(data)
+        elif sam_len < 45:
+            data_unify = up_sample(data)
+        else:
+            data_unify = data
+
+        data_unify.to_csv(target_path + i, header=None, index_label=None, index=None)
+
