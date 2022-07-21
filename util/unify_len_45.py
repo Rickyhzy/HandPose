@@ -21,23 +21,23 @@ def up_sample(data):
     yint2 = fc2(xint)
     yint3 = fc3(xint)
 
-    plt.figure(dpi=100)
-    plt.plot(yint, color='red', label='cubic')
-    plt.legend()
-
-    plt.figure(dpi=100)
-    plt.plot(yint2, color='green', label='nearest')
-    plt.legend()
-
-    plt.figure(dpi=100)
-    plt.plot(yint3, color='blue', label='linear')  # 最牛逼的
-    plt.legend()
-
-    plt.figure(dpi=100)
-    plt.plot(data, color='red', label='raw')
-
-    plt.legend()
-    plt.show()
+    # plt.figure(dpi=100)
+    # plt.plot(yint, color='red', label='cubic')
+    # plt.legend()
+    #
+    # plt.figure(dpi=100)
+    # plt.plot(yint2, color='green', label='nearest')
+    # plt.legend()
+    #
+    # plt.figure(dpi=100)
+    # plt.plot(yint3, color='blue', label='linear')  # 最牛逼的
+    # plt.legend()
+    #
+    # plt.figure(dpi=100)
+    # plt.plot(data, color='red', label='raw')
+    #
+    # plt.legend()
+    # plt.show()
 
 
     return yint
@@ -64,20 +64,20 @@ def down_sample(data):
     yint3 = fc3(xint)
     # print(yint)
 
-    plt.figure(dpi=100)
-    plt.plot(yint, color='red', label='one')
-
-    plt.figure(dpi=100)
-    plt.plot(yint2, color='green', label='nearest')
-
-    plt.figure(dpi=100)
-    plt.plot(yint3, color='blue', label='linear')
-
-    plt.figure(dpi=100)
-    plt.plot(data, color='red', label='two')
-
-    plt.legend()
-    plt.show()
+    # plt.figure(dpi=100)
+    # plt.plot(yint, color='red', label='one')
+    #
+    # plt.figure(dpi=100)
+    # plt.plot(yint2, color='green', label='nearest')
+    #
+    # plt.figure(dpi=100)
+    # plt.plot(yint3, color='blue', label='linear')
+    #
+    # plt.figure(dpi=100)
+    # plt.plot(data, color='red', label='two')
+    #
+    # plt.legend()
+    # plt.show()
 
     return yint
 
@@ -106,7 +106,8 @@ if __name__ == '__main__':
     # print(files)
     for i in files:
         print(i)
-        data = pd.read_csv(dir_path + i, header=None)
+        data = pd.read_csv(dir_path + i, header=None, delim_whitespace=True)
+        print(data)
         sam_len = len(data)
         if sam_len >= 45:
             data_unify = down_sample(data)

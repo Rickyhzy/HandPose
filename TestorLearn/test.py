@@ -136,16 +136,56 @@ print(b, type(b))
 
 from scipy import signal
 
-x = [i for i in range(1, 201)]
-y = signal.resample(x, 100)
-print(len(x), len(y))
-tx = np.linspace(0, 10, 200, endpoint=False)
-ty = np.linspace(0, 10, 100, endpoint=False)
-plt.plot(tx, x, '-')
-plt.plot(ty, y, '.-')
+# x = [i for i in range(1, 201)]
+# y = signal.resample(x, 100)
+# print(len(x), len(y))
+# tx = np.linspace(0, 10, 200, endpoint=False)
+# ty = np.linspace(0, 10, 100, endpoint=False)
+# plt.plot(tx, x, '-')
+# plt.plot(ty, y, '.-')
+#
+# t = np.linspace(0, 5, 100)
+# print(t[::4])
+#
+# plt.show()
 
-t = np.linspace(0, 5, 100)
-print(t[::4])
+from scipy.interpolate import interp1d
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='TRUE'
+
+
+print('*' * 50)
+one = pd.read_csv('../data/dynamic/data/a_sample_0_0.txt', header=None, delim_whitespace=True)
+kkk = pd.read_csv('../data/dynamic/data/k_sample_0_46.txt', header=None, delim_whitespace=True)
+print(len(one), len(kkk))
+data = one.iloc[:, :]
+# flex1_k = kkk.iloc[:, 0]
+print(data)
+data2 = data.T
+print(data2)
+length = len(data)
+x = np.arange(0, length)
+print(x)
+
+# 利用插值法下采样
+fc = interp1d(x, data, kind='cubic', axis=0)
+# fc2 = interp1d(x, data, kind='nearest')
+# fc3 = interp1d(x, data, kind='linear')
+
+# 控制为45个采样点
+xint = np.linspace(x.min(), x.max(), 45)
+print(xint)
+
+# 进行插值downsample
+yint = fc(xint)
+# yint2 = fc2(xint)
+# yint3 = fc3(xint)
+print(yint)
+
+plt.plot(yint, color='red', label='one')
 
 plt.show()
 
+pd.DataFrame(yint).to_csv('look2.csv', header=None, index_label=None, index=None)
