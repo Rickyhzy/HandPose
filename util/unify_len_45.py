@@ -120,5 +120,7 @@ if __name__ == '__main__':
             os.mkdir(target_path)
         else:
             print('文件夹已经存在')
-        data_unify.to_csv(target_path + i, header=None, index_label=None, index=None)
+        name = i[:-3]
+        data_unify.to_csv(target_path + name + 'csv', header=False, index_label=None, index=False)
+
 
