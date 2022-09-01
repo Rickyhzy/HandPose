@@ -194,9 +194,40 @@
 # data = pd.read_csv('../data/dynamic/data/a_sample_0_0.txt', header=None, delim_whitespace=True)
 # data.to_csv('look3.csv', header=None, index_label=None, index=None)
 
-import os
-target_path = '../data/dynamic_unify/'
-if not os.path.exists(target_path):
-    os.mkdir(target_path)
-else:
-    print('文件夹已经存在')
+# import os
+# target_path = '../data/dynamic_unify/'
+# if not os.path.exists(target_path):
+#     os.mkdir(target_path)
+# else:
+#     print('文件夹已经存在')
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+a = np.array([3, 5, 6, 7, 7, 1])
+print(a)
+b = np.array([3, 6, 6, 7, 8, 1, 1])
+print(b)
+c = np.array([2, 5, 7, 7, 7, 7, 2])
+
+dir_path = '../data/private/wanqu.csv'
+dir_path2 = '../data/private/wanqu2.csv'
+data1 = pd.read_csv(dir_path, header=None)
+# print(data1)
+flex1 = data1.iloc[:,0:5]
+print(flex1)
+
+data2 = pd.read_csv(dir_path2, header=None)
+# print(data1)
+flex2 = data2.iloc[:,0:5]
+print(flex2)
+
+plt.figure()
+plt.plot(flex1, label='a')
+
+
+plt.figure()
+plt.plot(flex2, label='b')
+plt.legend()
+plt.show()
