@@ -3,7 +3,7 @@ class Path(object):
     def db_dir(database):
         if database == 'dynamic_unify':
             # folder that contains class labels
-            root_dir = '../data/dynamic_unify'
+            root_dir = '../data/dynamic_unify/'
 
             # Save preprocess data into output_dir
             output_dir = '../data/output/'

@@ -201,33 +201,47 @@
 # else:
 #     print('文件夹已经存在')
 
+
+
+#----------------------波形展示-------------------------
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import pandas as pd
+#
+# a = np.array([3, 5, 6, 7, 7, 1])
+# print(a)
+# b = np.array([3, 6, 6, 7, 8, 1, 1])
+# print(b)
+# c = np.array([2, 5, 7, 7, 7, 7, 2])
+#
+# dir_path = '../data/private/wanqu.csv'
+# dir_path2 = '../data/private/wanqu2.csv'
+# data1 = pd.read_csv(dir_path, header=None)
+# # print(data1)
+# flex1 = data1.iloc[:,0:5]
+# print(flex1)
+#
+# data2 = pd.read_csv(dir_path2, header=None)
+# # print(data1)
+# flex2 = data2.iloc[:,0:5]
+# print(flex2)
+#
+# plt.figure()
+# plt.plot(flex1, label='a')
+#
+#
+# plt.figure()
+# plt.plot(flex2, label='b')
+# plt.legend()
+# plt.show()
+
+
+
 import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-
-a = np.array([3, 5, 6, 7, 7, 1])
-print(a)
-b = np.array([3, 6, 6, 7, 8, 1, 1])
-print(b)
-c = np.array([2, 5, 7, 7, 7, 7, 2])
-
-dir_path = '../data/private/wanqu.csv'
-dir_path2 = '../data/private/wanqu2.csv'
-data1 = pd.read_csv(dir_path, header=None)
-# print(data1)
-flex1 = data1.iloc[:,0:5]
-print(flex1)
-
-data2 = pd.read_csv(dir_path2, header=None)
-# print(data1)
-flex2 = data2.iloc[:,0:5]
-print(flex2)
-
-plt.figure()
-plt.plot(flex1, label='a')
-
-
-plt.figure()
-plt.plot(flex2, label='b')
-plt.legend()
-plt.show()
+bu = np.empty((2, 2, 2, 3), np.dtype('float32'))
+print(bu, bu.shape)
+# print(bu[0])
+frame = np.random.randint(0,1, (2,2,3))
+print('frame', frame,frame.shape)
+bu[0] = frame
+print(bu)
