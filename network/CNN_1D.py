@@ -5,7 +5,7 @@ import torch.nn as nn
 
 
 class CNN1D(nn.Module):
-    def __init__(self):
+    def __init__(self, num_classes, pretrained=False):
         super(CNN1D, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv1d(5, 8, kernel_size=3, stride=1),
@@ -33,7 +33,7 @@ class CNN1D(nn.Module):
         out2 = self.layer2(x2)
         out3 = torch.cat((out1, out2), dim=1)
         out4 = self.layer3(out3)
-        nn
+
         return out4
     pass
 

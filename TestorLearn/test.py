@@ -238,10 +238,18 @@
 
 
 import numpy as np
-bu = np.empty((2, 2, 2, 3), np.dtype('float32'))
-print(bu, bu.shape)
-# print(bu[0])
-frame = np.random.randint(0,1, (2,2,3))
-print('frame', frame,frame.shape)
-bu[0] = frame
-print(bu)
+import os
+# bu = np.empty((2, 2, 2, 3), np.dtype('float32'))
+# print(bu, bu.shape)
+# # print(bu[0])
+# frame = np.random.randint(0,1, (2,2,3))
+# print('frame', frame,frame.shape)
+# bu[0] = frame
+# print(bu)
+save_dir_root = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+print(save_dir_root)
+
+exp_name = os.path.dirname(os.path.abspath(__file__))
+print(exp_name)
+exp_name = os.path.dirname(os.path.abspath(__file__)).split('\\')[-1]
+print(exp_name)

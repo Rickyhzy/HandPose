@@ -1,8 +1,4 @@
-import torch
-import numpy as np
-import pandas as pd
-from BPNet import *
-from torch.utils.data import DataLoader
+from network.BPNet import *
 from Mydataset import *
 import os
 import matplotlib.pyplot as plt
