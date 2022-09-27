@@ -1,5 +1,4 @@
 import timeit
-
 import torch
 import pandas as pd
 import numpy as np
@@ -8,7 +7,6 @@ import glob
 import tqdm
 from cnn_dataset_one import CnnDataset
 from torch.utils.data import DataLoader
-
 from network import CNN_1D
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -31,24 +29,27 @@ else:
     print('We only implemented elas_hand and open_hand datasets.')
     raise NotImplementedError
 
-save_dir_root = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-exp_name = os.path.dirname(os.path.abspath(__file__)).split('/')[-1]
+save_dir_root = os.path.join(os.path.dirname(os.path.abspath(__file__)))  #获取本文件的路径
+exp_name = os.path.dirname(os.path.abspath(__file__)).split('\\')[-1]     #获取路径的最后一个
+print(save_dir_root, exp_name)
 
 if resume_epoch != 0:
-    runs = sorted(glob.glob(os.path.join(save_dir_root, 'run', 'run_*')))
+    runs = sorted(glob.glob(os.path.join(save_dir_root, 'run', 'run_*')))    #glob通配符，run_epoch，得到epoch
     run_id = int(runs[-1].split('_')[-1]) if runs else 0
 else:
     runs = sorted(glob.glob(os.path.join(save_dir_root, 'run', 'run_*')))
+    print(runs)
     run_id = int(runs[-1].split('_')[-1]) + 1 if runs else 0
+    print(run_id)
 
 save_dir = os.path.join(save_dir_root, 'run', 'run_' + str(run_id))
 modelName = 'elas1D'
 saveName = modelName + '-' + dataset
 
 def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=lr,
-                num_epochs=nEpochs, save_epoch=snapshot, useTest=useTest, test_interval=nTestInterval):
+                num_epochs=nEpochs, save_epoch=snapshot, useTest=useTest, test_interval=nTestInterval):  #TestInterval表示每多少epoch进行一次测试
 
-    if modelName == 'elas1D':
+    if modelName == 'elas1D':  #加载模型及optimizer优化器参数
         model = CNN_1D.CNN1D(num_classes=num_classes, pretrained=True)
         # train_params = [{'params': C3D_model.get_1x_lr_params(model), 'lr': lr},
         #                 {'params': C3D_model.get_10x_lr_params(model), 'lr': lr * 10}]
@@ -56,16 +57,16 @@ def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=
         print('We only implemented elas_hand models.')
         raise NotImplementedError
 
-    weights = '../model/net.pth'
+    weights = '../model/net.pth'    #权重文件的加载
     if os.path.exists(weights):
         model.load_state_dict(torch.load(weights))
         print("loading successful")
 
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10,
-                                          gamma=0.1)  # the scheduler divides the lr by 10 every 10 epochs
-    if resume_epoch == 0:
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)  # the scheduler divides the lr by 10 every 10 epochs
+
+    if resume_epoch == 0:   #训练中断时的代码
         print("Training {} from scratch...".format(modelName))
     else:
         checkpoint = torch.load(
@@ -76,13 +77,15 @@ def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=
         model.load_state_dict(checkpoint['state_dict'])
         optimizer.load_state_dict(checkpoint['opt_dict'])
 
-    print('Total params: %.2fM' % (sum(p.numel() for p in model.parameters()) / 1000000.0))
+    print('Total params: %.2fM' % (sum(p.numel() for p in model.parameters()) / 1000000.0))  #计算模型参数量
+
     model.to(device)
     criterion.to(device)
 
     print('Training model on {} dataset...'.format(dataset))
-    train_dataloader = DataLoader(CnnDataset(dataset=dataset, split='train', clip_len=16), batch_size=20,
-                                  shuffle=True, num_workers=4)
+    # 数据加载器准备中
+    train_dataloader = DataLoader(CnnDataset(dataset=dataset, split='train', clip_len=16), batch_size=20, shuffle=True,
+                                  num_workers=4)
     val_dataloader = DataLoader(CnnDataset(dataset=dataset, split='val', clip_len=16), batch_size=20, num_workers=4)
     test_dataloader = DataLoader(CnnDataset(dataset=dataset, split='test', clip_len=16), batch_size=20, num_workers=4)
 

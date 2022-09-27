@@ -253,3 +253,22 @@ exp_name = os.path.dirname(os.path.abspath(__file__))
 print(exp_name)
 exp_name = os.path.dirname(os.path.abspath(__file__)).split('\\')[-1]
 print(exp_name)
+
+a = 'a/b/c'
+b = r'a\b\c'
+c = 'a\\b\\c'
+d = os.path.join(a, 'run', 'run_*')
+runs = ['run_1','run_2','run_3']
+run_id = runs[-1].split('_')[-1]
+print(run_id)
+d = os.path.join(a, 'run', 'run_' + run_id)
+print(d)
+print('Total params: %.02fM' % 120.90)
+
+a1 = np.random.randint(0, 10, size=10)
+print(a1)
+b1 = np.random.randint(0, 10, size=20)
+print(b1)
+trainval_loaders = {'train': a1, 'val': b1}
+trainval_sizes = {x: len(trainval_loaders[x]) for x in ['train', 'val']}
+print(trainval_sizes)
