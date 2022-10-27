@@ -54,4 +54,4 @@ if __name__ == '__main__':
             print('Data could not be read')
     ser.close()
     # to_file(DB,'one')
-    arr2csv(DB, 'wanqu')
+    arr2csv(DB, 'huitu')

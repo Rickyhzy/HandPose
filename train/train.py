@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import os
 import glob
-import tqdm
+from tqdm import tqdm
 from cnn_dataset_one import CnnDataset
 from torch.utils.data import DataLoader
 from network import CNN_1D
@@ -64,7 +64,7 @@ def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=
 
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)  # the scheduler divides the lr by 10 every 10 epochs
+    # scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)  # the scheduler divides the lr by 10 every 10 epochs
 
     if resume_epoch == 0:   #训练中断时的代码
         print("Training {} from scratch...".format(modelName))
@@ -94,14 +94,14 @@ def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=
     test_size = len(test_dataloader.dataset)
 
     for epoch in range(resume_epoch, num_epochs):
-        for phase in ['train', 'val']:
+        for phase in ['train', 'val']:          #一般来说要train和val，但是本实验采用train
             start_time = timeit.default_timer() #记录起始时间
 
             running_loss = 0.0
             running_corrects = 0.0
 
             if phase == 'train':
-                scheduler.step()
+                # scheduler.step()   #对学习率进行更新
                 model.train()
             else:
                 model.eval()
@@ -111,7 +111,6 @@ def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=
                 # 梯度清零
                 optimizer.zero_grad()
 
-
                 if phase == 'train':
                     # 前向计算，计算loss
                     out = model(inputs)
@@ -119,9 +118,9 @@ def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=
                     with torch.no_grad():
                         out = model(inputs)
 
-                probs = torch.nn.Softmax(dim=1)(out)
-                preds = torch.max(probs, 1)[1]
-                loss = criterion(out, labels)
+                probs = torch.nn.Softmax(dim=1)(out)     #softmax取得10个动作的概率
+                preds = torch.max(probs, 1)[1]           #取得每个每个batchsize中的概率最大的位置，即标签
+                loss = criterion(out, labels)            #标签比对，求loss
 
                 #梯度下降
                 if phase == 'train':
@@ -147,6 +146,8 @@ def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=
                 print("Save model at {}\n".format(
                     os.path.join(save_dir, 'models', saveName + '_epoch-' + str(epoch) + '.pth.tar')))
 
+
+            #以下为测试集代码
             if useTest and epoch % test_interval == (test_interval - 1):
                 model.eval()
                 start_time = timeit.default_timer()

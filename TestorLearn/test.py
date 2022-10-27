@@ -234,8 +234,7 @@
 # plt.plot(flex2, label='b')
 # plt.legend()
 # plt.show()
-
-
+import time
 
 import numpy as np
 import os
@@ -272,3 +271,30 @@ print(b1)
 trainval_loaders = {'train': a1, 'val': b1}
 trainval_sizes = {x: len(trainval_loaders[x]) for x in ['train', 'val']}
 print(trainval_sizes)
+
+
+import torch
+torch.manual_seed(1)
+a = torch.randn(2, 3)
+print(a)
+probs = torch.nn.Softmax(dim=1)(a)
+print(probs)
+tuplepre = torch.max(probs, dim=1)
+preds = torch.max(probs, dim=1)[1]
+print(preds)
+
+from tqdm import tqdm
+import time
+a = [1, 2, 3]
+for i in tqdm(a):
+    # time.sleep(1)
+    print(i)
+
+def zx():
+    yield 1
+    yield 2
+x=zx()
+
+print(x.__next__())
+
+
