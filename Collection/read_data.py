@@ -47,11 +47,11 @@ if __name__ == '__main__':
             DB.append(data)
             over_time = time.time()
             time.sleep(0.01)
-            if (over_time - start_time) > 5:
+            if (over_time - start_time) > 10:
                 print('data is SAMPLED')
                 break
         except serial.SerialException:
             print('Data could not be read')
     ser.close()
     # to_file(DB,'one')
-    arr2csv(DB, 'huitu')
+    arr2csv(DB, 'dongzuo4')
