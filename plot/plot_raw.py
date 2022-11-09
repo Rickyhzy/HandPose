@@ -33,19 +33,21 @@ plt.plot(flex3,label='flex3')
 plt.plot(flex4,label='flex4')
 plt.plot(flex5,label='flex5')
 plt.legend()
-# plt.savefig('../data/private/elas.jpg',dpi=150)
+plt.savefig('../data/private/elas2d.jpg',dpi=150)
 
 plt.figure(dpi=100)
-plt.plot(accx,label='accx')
-plt.plot(accy,label='accy')
-plt.plot(accz,label='accz')
-# plt.savefig('../data/private/acc.jpg',dpi=150)
+plt.plot(accx, label='accx')
+plt.plot(accy, label='accy')
+plt.plot(accz, label='accz')
+plt.legend()
+plt.savefig('../data/private/acc2d.jpg',dpi=150)
 
 plt.figure(dpi=100)
 plt.plot(gyrx,label='gyrx')
 plt.plot(gyry,label='gyry')
 plt.plot(gyrz,label='gyrz')
-# plt.savefig('../data/private/gyro.jpg',dpi=150)
+plt.legend()
+plt.savefig('../data/private/gyro2d.jpg',dpi=150)
 
 
 

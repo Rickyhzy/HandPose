@@ -28,18 +28,23 @@
 
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
+import numpy as np
 
 y_pred = ['0','1','2','3','4','5','6','7','8','9','0','2','2','3','4','5','6','7','8','9'] # ['2','2','3','1','4'] # 类似的格式
 y_true = ['0','1','2','3','4','5','6','7','8','9','0','1','2','3','4','5','6','7','8','9'] # ['0','1','2','3','4'] # 类似的格式
 
 
-cnf_matrix = confusion_matrix(y_true, y_pred, labels=['0','1','2','3','4','5','6','7','8','9'], normalize=True)
-print(cnf_matrix)
-plt.matshow(cnf_matrix, cmap=plt.cm.Blues)
+cnf_matrix = confusion_matrix(y_true, y_pred, normalize='true')
+print(cnf_matrix, cnf_matrix.shape, cnf_matrix.dtype)
+plt.imshow(cnf_matrix, interpolation='nearest', cmap=plt.cm.Blues)
+# plt.matshow(cnf_matrix, cmap=plt.cm.Blues)
 plt.colorbar()
 for i in range(len(cnf_matrix)):
     for j in range(len(cnf_matrix)):
         plt.annotate(cnf_matrix[j, i], xy=(i, j), horizontalalignment='center', verticalalignment='center')
+plt.xticks(np.arange(10))
 plt.ylabel('True label')
 plt.xlabel('Predicted label')
+plt.title('Elas-hand Confusion Matrix')
+# plt.savefig('Elas-hand_cm.png', format='png')
 plt.show()
