@@ -12,32 +12,36 @@ def mean_filter(data, size=5):#滑动滤波器（均值）
     return result
 
 
-one = pd.read_csv('../data/private/00ONE.csv')
-flex1 = one.iloc[:,0]
-flex2 = one.iloc[:,1]
-flex3 = one.iloc[:,2]
-flex4 = one.iloc[:,3]
-flex5 = one.iloc[:,4]
-accx = one.iloc[:,5]
-accy = one.iloc[:,6]
-accz = one.iloc[:,7]
-gyrx = one.iloc[:,8]
-gyry = one.iloc[:,9]
-gyrz = one.iloc[:,10]
+one = pd.read_csv('../data/dynamic/data/n_sample_0_65.txt', header=None, delim_whitespace=True)
+print(one)
+flex1 = one.iloc[:,7]
+flex2 = one.iloc[:,8]
+flex3 = one.iloc[:,9]
 
-flex1_pro = mean_filter(flex1)
-flex2_pro = mean_filter(flex2)
-flex3_pro = mean_filter(flex3)
-flex4_pro = mean_filter(flex4)
-flex5_pro = mean_filter(flex5)
+# accx = one.iloc[:,5]
+# accy = one.iloc[:,6]
+# accz = one.iloc[:,7]
+# gyrx = one.iloc[:,8]
+# gyry = one.iloc[:,9]
+# gyrz = one.iloc[:,10]
+
+# flex1_pro = mean_filter(flex1)
+# flex2_pro = mean_filter(flex2)
+# flex3_pro = mean_filter(flex3)
+# flex4_pro = mean_filter(flex4)
+# flex5_pro = mean_filter(flex5)
+
+# accx_pro = mean_filter(accx)
+# accy_pro = mean_filter(accy)
+# accz_pro = mean_filter(accz)
+
 # print(flex1)
 
 plt.figure(dpi=100)
 plt.plot(flex1,label='flex1')
 plt.plot(flex2,label='flex2')
 plt.plot(flex3,label='flex3')
-plt.plot(flex4,label='flex4')
-plt.plot(flex5,label='flex5')
+
 plt.title('原始数据')
 # plt.plot(accx,label='accx')
 # plt.plot(accy,label='accy')
@@ -45,7 +49,7 @@ plt.title('原始数据')
 # plt.plot(gyrx,label='gyrx')
 # plt.plot(gyry,label='gyry')
 # plt.plot(gyrz,label='gyrz')
-plt.legend()
+# plt.legend()
 # plt.show()
 
 
@@ -57,12 +61,19 @@ plt.legend()
 # plt.figure(dpi=100)
 # plt.plot(onet)
 # plt.plot(onett)
+two = pd.read_csv('../data/dynamic_unify/n_sample_0_65.csv')
 plt.figure(dpi=100)
-plt.plot(flex1_pro,label='flex1')
-plt.plot(flex2_pro,label='flex2')
-plt.plot(flex3_pro,label='flex3')
-plt.plot(flex4_pro,label='flex4')
-plt.plot(flex5_pro,label='flex5')
-plt.legend()
-plt.title('滤波数据')
+flex1 = two.iloc[:,7]
+flex2 = two.iloc[:,8]
+flex3 = two.iloc[:,9]
+plt.plot(flex1,label='flex1')
+plt.plot(flex2,label='flex2')
+plt.plot(flex3,label='flex3')
+# plt.plot(flex4_pro,label='flex4')
+# plt.plot(flex5_pro,label='flex5')
+# plt.plot(accx_pro,label='accx')
+# plt.plot(accy_pro,label='accy')
+# plt.plot(accz_pro,label='accz')
+# plt.legend()
+plt.title('重采样数据')
 plt.show()
