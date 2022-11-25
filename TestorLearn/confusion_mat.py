@@ -36,13 +36,15 @@ y_true = ['0','1','2','3','4','5','6','7','8','9','0','1','2','3','4','5','6','7
 
 cnf_matrix = confusion_matrix(y_true, y_pred, normalize='true')
 print(cnf_matrix, cnf_matrix.shape, cnf_matrix.dtype)
-plt.imshow(cnf_matrix, interpolation='nearest', cmap=plt.cm.Blues)
+plt.imshow(cnf_matrix, interpolation='nearest', cmap=plt.cm.Blues, origin='upper')
 # plt.matshow(cnf_matrix, cmap=plt.cm.Blues)
 plt.colorbar()
 for i in range(len(cnf_matrix)):
     for j in range(len(cnf_matrix)):
+        print(i, j)
         plt.annotate(cnf_matrix[j, i], xy=(i, j), horizontalalignment='center', verticalalignment='center')
 plt.xticks(np.arange(10))
+plt.yticks(np.arange(10))
 plt.ylabel('True label')
 plt.xlabel('Predicted label')
 plt.title('Elas-hand Confusion Matrix')
